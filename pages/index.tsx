@@ -11,6 +11,9 @@ const Home: NextPage = () => {
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
+  const myLoader = ({ src, width, quality }: { src: string, width: number, quality: number}) => {
+    return `https://example.com/${src}?w=${width}&q=${quality || 75}`
+  }
 
   const format = (index: number | SetStateAction<number>) =>
     index <= 9 ? index : Number(`0${index}`);
@@ -83,12 +86,12 @@ const Home: NextPage = () => {
               </div>
             </div>
           </div>
-          <Image
-            alt="background image"
-            src="/image.webp"
-            layout="fill"
-            quality={100}
-          />
+            {/* <Image
+              alt="background image"
+              src="https://picsum.photos/1920/1080?random=1"
+              layout="fill"
+              quality={100}
+          /> */}
         </>
       )}
     </div>
