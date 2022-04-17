@@ -9,6 +9,7 @@
   background: url('https://picsum.photos/1920/1080?random=1');
   background-repeat: no-repeat;
   background-size: cover;
+  backdrop: blur(3px);
 }
 
 .main {
