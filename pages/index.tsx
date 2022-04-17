@@ -1,4 +1,5 @@
 import type { NextPage } from "next";
+import { SetStateAction } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -11,26 +12,29 @@ const Home: NextPage = () => {
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
 
+  const format = (index: number | SetStateAction<number>) =>
+    index <= 9 ? index : Number(`0${index}`);
+
   useEffect(() => {
-    const target = new Date("12/31/2021 23:59:59");
+    const target = new Date("10/30/2022 00:00:00");
 
     const interval = setInterval(() => {
       const now = new Date();
       const difference = target.getTime() - now.getTime();
 
       const d = Math.floor(difference / (1000 * 60 * 60 * 24));
-      setDays(d);
+      setDays(format(d));
 
       const h = Math.floor(
         (difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
       );
-      setHours(h);
+      setHours(format(h));
 
       const m = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-      setMinutes(m);
+      setMinutes(format(m));
 
       const s = Math.floor((difference % (1000 * 60)) / 1000);
-      setSeconds(s);
+      setSeconds(s <= 9 ? Number(`0${s}`) : s);
 
       if (d <= 0 && h <= 0 && m <= 0 && s <= 0) {
         setPartyTime(true);
@@ -59,22 +63,22 @@ const Home: NextPage = () => {
           <div className="timer-wrapper">
             <div className="timer-inner">
               <div className="timer-segment">
-                <span className="time">{days}</span>
+                <span className="time">{format(days)}</span>
                 <span className="label">Days</span>
               </div>
               <span className="divider">:</span>
               <div className="timer-segment">
-                <span className="time">{hours}</span>
+                <span className="time">{format(hours)}</span>
                 <span className="label">Hours</span>
               </div>
               <span className="divider">:</span>
               <div className="timer-segment">
-                <span className="time">{minutes}</span>
+                <span className="time">{format(minutes)}</span>
                 <span className="label">Minutes</span>
               </div>
               <span className="divider">:</span>
               <div className="timer-segment">
-                <span className="time">{seconds}</span>
+                <span className="time">{format(seconds)}</span>
                 <span className="label">Seconds</span>
               </div>
             </div>
